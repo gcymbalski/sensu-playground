@@ -1,0 +1,32 @@
+version: '2'
+services:
+  consul-agent:
+    image: consul
+    command: consul agent -retry-join=consul -data-dir=/consul/data
+    depends_on:
+      - consul
+
+  consul:
+    image: consul
+    command: consul agent -config-dir=/consul/config -dev -ui -server -bind=0.0.0.0 
+    environment:
+      CONSUL_LOCAL_CONFIG: |
+        {"addresses":{"http": "0.0.0.0"}}
+    ports:
+      - "8500:8500"
+    volumes:
+      - ./service-definitions/redis.json:/consul/config/redis.json
+      - ./service-definitions/rabbitmq.json:/consul/config/rabbitmq.json
+    depends_on:
+      - redis
+      - rabbitmq
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - "5672:5672"

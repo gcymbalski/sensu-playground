@@ -1,0 +1,18 @@
+{
+  "service": {
+    "name": "redis",
+    "tags": ["primary"],
+    "address": "redis",
+    "port": 6379,
+    "enableTagOverride": false,
+    "checks": [
+      {
+				"id": "redis",
+				"name": "Redis activity check",
+				"tcp": "redis:6379",
+        "timeout": "1s",
+        "interval": "10s"
+      }
+    ]
+  }
+}

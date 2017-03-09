@@ -1,0 +1,18 @@
+{
+  "service": {
+    "name": "rabbitmq",
+    "tags": ["primary"],
+    "address": "rabbitmq",
+    "port": 5672,
+    "enableTagOverride": false,
+    "checks": [
+      {
+				"id": "rabbitmq",
+				"name": "RabbitMQ activity check",
+				"tcp": "rabbitmq:5672",
+        "timeout": "1s",
+        "interval": "10s"
+      }
+    ]
+  }
+}
